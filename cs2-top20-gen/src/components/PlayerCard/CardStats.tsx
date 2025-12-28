@@ -65,7 +65,9 @@ export function CardStats({ stats }: CardStatsProps) {
                 className="text-[14px] font-bold w-12 text-right tracking-wide font-condensed"
                 style={{ color: textColor }}
               >
-                {stat.displayValue}
+                {stat.name.toUpperCase() === "ROUND SWING" && stat.value > 0 ? `+${stat.value}%` : 
+                 stat.name.toUpperCase() === "SURVIVING" || stat.name.toUpperCase() === "MULTI-KILLS" || stat.name.toUpperCase() === "KAST" ? `${stat.value}%` :
+                 stat.value}
               </span>
             </div>
           );

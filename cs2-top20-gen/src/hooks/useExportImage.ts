@@ -1,5 +1,5 @@
 import { RefObject, useState, useCallback } from "react";
-import { toPng } from "html-to-image";
+import html2canvas from "html2canvas";
 
 interface UseExportImageOptions {
   scale?: number;
@@ -40,12 +40,14 @@ export function useExportImage(
       );
 
       try {
-        const dataUrl = await toPng(cardRef.current, {
-          pixelRatio: scale,
+        const canvas = await html2canvas(cardRef.current, {
+          scale: scale,
           backgroundColor: backgroundColor ?? undefined,
-          cacheBust: true,
+          useCORS: true,
+          allowTaint: true,
         });
 
+        const dataUrl = canvas.toDataURL("image/png");
         const link = document.createElement("a");
         link.download = `${filename}.png`;
         link.href = dataUrl;
