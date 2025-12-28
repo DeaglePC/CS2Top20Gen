@@ -4,7 +4,7 @@
 
 一个用于生成 HLTV 风格 CS2 年度 Top 20 选手卡片的在线工具。
 
-![Preview](./assets/preview.png)
+![Preview](./img/preview.png)
 
 ## ✨ 功能特性
 
