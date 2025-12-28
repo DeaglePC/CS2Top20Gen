@@ -1,0 +1,9 @@
+services:
+  cs2-top20-gen:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cs2-top20-gen
+    ports:
+      - "8080:80"
+    restart: unless-stopped
