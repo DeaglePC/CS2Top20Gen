@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "html-to-image": "^1.11.13"
-  },
-  "devDependencies": {
-    "@types/node": "^25.0.3"
-  }
-}
