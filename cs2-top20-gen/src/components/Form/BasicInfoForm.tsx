@@ -1,6 +1,7 @@
 import { PlayerBasicInfo, countries } from "@/types/player";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useI18n } from "@/i18n";
 
 interface BasicInfoFormProps {
   data: PlayerBasicInfo;
@@ -8,48 +9,50 @@ interface BasicInfoFormProps {
 }
 
 export function BasicInfoForm({ data, onChange }: BasicInfoFormProps) {
+  const { t } = useI18n();
+
   const handleChange = (field: keyof PlayerBasicInfo, value: string | number) => {
     onChange({ ...data, [field]: value });
   };
 
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-gold">基础信息</h3>
+      <h3 className="text-lg font-semibold text-gold">{t("form.basicInfo")}</h3>
       
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="playerId">选手ID</Label>
+          <Label htmlFor="playerId">{t("form.playerId")}</Label>
           <Input
             id="playerId"
             value={data.playerId}
             onChange={(e) => handleChange("playerId", e.target.value)}
-            placeholder="如: NIKO"
+            placeholder={t("form.playerIdPlaceholder")}
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="realName">真实姓名</Label>
+          <Label htmlFor="realName">{t("form.realName")}</Label>
           <Input
             id="realName"
             value={data.realName}
             onChange={(e) => handleChange("realName", e.target.value)}
-            placeholder="如: Nikola Kovač"
+            placeholder={t("form.realNamePlaceholder")}
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="age">年龄</Label>
+          <Label htmlFor="age">{t("form.age")}</Label>
           <Input
             id="age"
             type="number"
             value={data.age}
             onChange={(e) => handleChange("age", parseInt(e.target.value) || 0)}
-            placeholder="如: 28"
+            placeholder={t("form.agePlaceholder")}
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="nationality">国籍</Label>
+          <Label htmlFor="nationality">{t("form.nationality")}</Label>
           <select
             id="nationality"
             value={data.nationality}
@@ -65,17 +68,17 @@ export function BasicInfoForm({ data, onChange }: BasicInfoFormProps) {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="team">战队</Label>
+          <Label htmlFor="team">{t("form.team")}</Label>
           <Input
             id="team"
             value={data.team}
             onChange={(e) => handleChange("team", e.target.value)}
-            placeholder="如: Falcons"
+            placeholder={t("form.teamPlaceholder")}
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="rank">排名</Label>
+          <Label htmlFor="rank">{t("form.rank")}</Label>
           <Input
             id="rank"
             type="number"
@@ -83,18 +86,18 @@ export function BasicInfoForm({ data, onChange }: BasicInfoFormProps) {
             onChange={(e) => handleChange("rank", parseInt(e.target.value) || 1)}
             min={1}
             max={20}
-            placeholder="1-20"
+            placeholder={t("form.rankPlaceholder")}
           />
         </div>
 
         <div className="space-y-2 col-span-2">
-          <Label htmlFor="year">年份</Label>
+          <Label htmlFor="year">{t("form.year")}</Label>
           <Input
             id="year"
             type="number"
             value={data.year}
             onChange={(e) => handleChange("year", parseInt(e.target.value) || 2025)}
-            placeholder="如: 2025"
+            placeholder={t("form.yearPlaceholder")}
           />
         </div>
       </div>

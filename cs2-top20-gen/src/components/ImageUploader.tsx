@@ -1,6 +1,7 @@
 import { useRef, ChangeEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Upload, X } from "lucide-react";
+import { useI18n } from "@/i18n";
 
 interface ImageUploaderProps {
   imageUrl: string;
@@ -9,6 +10,7 @@ interface ImageUploaderProps {
 
 export function ImageUploader({ imageUrl, onImageChange }: ImageUploaderProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { t } = useI18n();
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -34,7 +36,7 @@ export function ImageUploader({ imageUrl, onImageChange }: ImageUploaderProps) {
 
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-gold">选手照片</h3>
+      <h3 className="text-lg font-semibold text-gold">{t("upload.playerPhoto")}</h3>
 
       <input
         ref={fileInputRef}
@@ -49,7 +51,7 @@ export function ImageUploader({ imageUrl, onImageChange }: ImageUploaderProps) {
           <div className="relative w-full h-48 rounded-lg overflow-hidden bg-hltv-bg-light">
             <img
               src={imageUrl}
-              alt="选手照片预览"
+              alt="Player photo preview"
               className="w-full h-full object-cover object-top"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
@@ -63,7 +65,7 @@ export function ImageUploader({ imageUrl, onImageChange }: ImageUploaderProps) {
               className="bg-hltv-bg-dark/80 hover:bg-hltv-bg-medium"
             >
               <Upload className="w-4 h-4 mr-1" />
-              更换
+              {t("upload.change")}
             </Button>
             <Button
               type="button"
@@ -81,14 +83,10 @@ export function ImageUploader({ imageUrl, onImageChange }: ImageUploaderProps) {
           className="w-full h-48 border-2 border-dashed border-gray-600 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-gold hover:bg-hltv-bg-light/50 transition-colors"
         >
           <Upload className="w-12 h-12 text-gray-500 mb-2" />
-          <p className="text-gray-400 text-sm">点击上传选手照片</p>
-          <p className="text-gray-500 text-xs mt-1">支持 JPG、PNG 格式</p>
+          <p className="text-gray-400 text-sm">{t("upload.click")}</p>
+          <p className="text-gray-500 text-xs mt-1">{t("upload.drag")}</p>
         </div>
       )}
-
-      <p className="text-xs text-gray-500">
-        建议上传高清半身照，照片将自动适配卡片布局
-      </p>
     </div>
   );
 }

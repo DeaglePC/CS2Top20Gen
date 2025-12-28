@@ -4,7 +4,9 @@ import { PlayerCard } from "@/components/PlayerCard";
 import { PlayerForm } from "@/components/Form";
 import { Button } from "@/components/ui/button";
 import { useExportImage } from "@/hooks/useExportImage";
-import { Download, RotateCcw } from "lucide-react";
+import { Download, RotateCcw, Github } from "lucide-react";
+import { useI18n } from "@/i18n";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 const STORAGE_KEY = "cs2-top20-player-data";
 
@@ -32,6 +34,7 @@ function App() {
   const [playerData, setPlayerData] = useState<PlayerData>(loadFromStorage);
   const cardRef = useRef<HTMLDivElement>(null);
   const { exportAsImage, isExporting } = useExportImage(cardRef);
+  const { t } = useI18n();
 
   // Save to localStorage whenever playerData changes
   useEffect(() => {
@@ -55,13 +58,24 @@ function App() {
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <h1 className="text-xl font-bold gold-gradient">
-              CS2 Top 20 Card Generator
+              {t("app.title")}
             </h1>
             <span className="text-xs text-gray-500 bg-hltv-bg-light px-2 py-1 rounded">
-              HLTV Style
+              {t("app.subtitle")}
             </span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
+            <a
+              href="https://github.com/DeaglePC/CS2Top20Gen"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-gray-400 hover:text-white transition-colors"
+            >
+              <Github className="w-5 h-5" />
+              <span className="text-sm">{t("app.github")}</span>
+              <span className="text-sm text-yellow-500">{t("app.star")}</span>
+            </a>
+            <LanguageSwitcher />
             <Button
               variant="outline"
               size="sm"
@@ -69,7 +83,7 @@ function App() {
               className="border-gray-700"
             >
               <RotateCcw className="w-4 h-4 mr-1" />
-              重置
+              {t("app.reset")}
             </Button>
             <Button
               onClick={handleExport}
@@ -77,7 +91,7 @@ function App() {
               className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-bold hover:from-yellow-400 hover:to-yellow-500"
             >
               <Download className="w-4 h-4 mr-1" />
-              {isExporting ? "导出中..." : "导出 PNG"}
+              {isExporting ? t("app.exporting") : t("app.export")}
             </Button>
           </div>
         </div>
@@ -94,9 +108,9 @@ function App() {
         <div className="ml-[400px] flex-1 p-8 flex flex-col items-center min-h-[calc(100vh-64px)]">
           <div className="sticky top-24 w-full flex flex-col items-center">
             <div className="mb-4 w-full max-w-[800px] flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-300">卡片预览</h2>
+              <h2 className="text-lg font-semibold text-gray-300">{t("preview.title")}</h2>
               <span className="text-xs text-gray-500">
-                导出尺寸: 800 x 900 px
+                {t("preview.size")}
               </span>
             </div>
             <div className="overflow-auto max-h-[calc(100vh-140px)] w-full flex justify-center">

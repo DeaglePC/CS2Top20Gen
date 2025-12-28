@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Plus, X } from "lucide-react";
+import { useI18n } from "@/i18n";
 
 interface StatsFormProps {
   stats: PersonalStat[];
@@ -10,6 +11,8 @@ interface StatsFormProps {
 }
 
 export function StatsForm({ stats, onChange }: StatsFormProps) {
+  const { t } = useI18n();
+
   const addStat = () => {
     onChange([
       ...stats,
@@ -30,7 +33,7 @@ export function StatsForm({ stats, onChange }: StatsFormProps) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gold">个人数据统计</h3>
+        <h3 className="text-lg font-semibold text-gold">{t("form.personalStats")}</h3>
         <Button
           type="button"
           variant="ghost"
@@ -39,7 +42,7 @@ export function StatsForm({ stats, onChange }: StatsFormProps) {
           className="text-gold hover:text-yellow-400"
         >
           <Plus className="w-4 h-4 mr-1" />
-          添加数据
+          {t("form.addStat")}
         </Button>
       </div>
 
@@ -50,7 +53,7 @@ export function StatsForm({ stats, onChange }: StatsFormProps) {
             className="p-3 bg-hltv-bg-light rounded-lg space-y-3"
           >
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-400">数据项 #{index + 1}</span>
+              <span className="text-sm text-gray-400">{t("form.statItem")} #{index + 1}</span>
               <Button
                 type="button"
                 variant="ghost"
@@ -64,16 +67,16 @@ export function StatsForm({ stats, onChange }: StatsFormProps) {
 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1">
-                <Label className="text-xs">名称</Label>
+                <Label className="text-xs">{t("form.statName")}</Label>
                 <Input
                   value={stat.name}
                   onChange={(e) => updateStat(index, "name", e.target.value)}
-                  placeholder="如: KPR"
+                  placeholder={t("form.statNamePlaceholder")}
                   className="h-8 text-sm"
                 />
               </div>
               <div className="space-y-1">
-                <Label className="text-xs">数值</Label>
+                <Label className="text-xs">{t("form.statValue")}</Label>
                 <Input
                   type="number"
                   step="0.01"
@@ -92,7 +95,7 @@ export function StatsForm({ stats, onChange }: StatsFormProps) {
 
       {stats.length === 0 && (
         <p className="text-sm text-gray-500 text-center py-4">
-          暂无数据统计，点击上方按钮添加
+          {t("form.noStats")}
         </p>
       )}
     </div>

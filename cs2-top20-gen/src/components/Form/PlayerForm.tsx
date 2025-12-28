@@ -8,6 +8,7 @@ import { StatsForm } from "./StatsForm";
 import { NotableStatsForm } from "./NotableStatsForm";
 import { ImageUploader } from "../ImageUploader";
 import { TeamLogoUploader } from "../TeamLogoUploader";
+import { useI18n } from "@/i18n";
 
 interface PlayerFormProps {
   data: PlayerData;
@@ -15,15 +16,17 @@ interface PlayerFormProps {
 }
 
 export function PlayerForm({ data, onChange }: PlayerFormProps) {
+  const { t } = useI18n();
+
   return (
     <div className="h-full flex flex-col">
       <Tabs defaultValue="basic" className="flex-1 flex flex-col">
         <TabsList className="grid grid-cols-5 mb-4">
-          <TabsTrigger value="basic">基础</TabsTrigger>
-          <TabsTrigger value="awards">奖项</TabsTrigger>
-          <TabsTrigger value="achievements">成就</TabsTrigger>
-          <TabsTrigger value="stats">数据</TabsTrigger>
-          <TabsTrigger value="notable">详细</TabsTrigger>
+          <TabsTrigger value="basic">{t("tab.basic")}</TabsTrigger>
+          <TabsTrigger value="awards">{t("tab.awards")}</TabsTrigger>
+          <TabsTrigger value="achievements">{t("tab.achievements")}</TabsTrigger>
+          <TabsTrigger value="stats">{t("tab.stats")}</TabsTrigger>
+          <TabsTrigger value="notable">{t("tab.notable")}</TabsTrigger>
         </TabsList>
 
         <ScrollArea className="flex-1 pr-4">

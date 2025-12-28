@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Plus, X } from "lucide-react";
+import { useI18n } from "@/i18n";
 
 interface AwardsFormProps {
   mvpAwards: Award[];
@@ -18,6 +19,8 @@ export function AwardsForm({
   onMvpChange,
   onEvpChange,
 }: AwardsFormProps) {
+  const { t } = useI18n();
+
   const addMvpAward = () => {
     onMvpChange([...mvpAwards, { type: "MVP", event: "", isGold: false }]);
   };
@@ -60,12 +63,12 @@ export function AwardsForm({
 
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-semibold text-gold">奖项</h3>
+      <h3 className="text-lg font-semibold text-gold">{t("form.awards")}</h3>
 
       {/* MVP Awards */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <Label className="text-yellow-500">MVP Awards</Label>
+          <Label className="text-yellow-500">{t("form.mvpAwards")}</Label>
           <Button
             type="button"
             variant="ghost"
@@ -74,7 +77,7 @@ export function AwardsForm({
             className="text-yellow-500 hover:text-yellow-400"
           >
             <Plus className="w-4 h-4 mr-1" />
-            添加
+            {t("form.add")}
           </Button>
         </div>
         {mvpAwards.map((award, index) => (
@@ -87,13 +90,13 @@ export function AwardsForm({
                 className="border-yellow-500"
               />
               <Label htmlFor={`mvp-gold-${index}`} className="text-xs text-yellow-500 cursor-pointer">
-                金色
+                {t("form.gold")}
               </Label>
             </div>
             <Input
               value={award.event}
               onChange={(e) => updateMvpAward(index, e.target.value)}
-              placeholder="赛事名称，如: PGL Major"
+              placeholder={t("form.eventPlaceholder")}
               className="flex-1"
             />
             <Button
@@ -108,14 +111,14 @@ export function AwardsForm({
           </div>
         ))}
         {mvpAwards.length === 0 && (
-          <p className="text-sm text-gray-500">暂无 MVP 奖项</p>
+          <p className="text-sm text-gray-500">{t("form.noMvp")}</p>
         )}
       </div>
 
       {/* EVP Awards */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
-          <Label className="text-gray-400">EVP Awards</Label>
+          <Label className="text-gray-400">{t("form.evpAwards")}</Label>
           <Button
             type="button"
             variant="ghost"
@@ -124,7 +127,7 @@ export function AwardsForm({
             className="text-gray-400 hover:text-gray-300"
           >
             <Plus className="w-4 h-4 mr-1" />
-            添加
+            {t("form.add")}
           </Button>
         </div>
         {evpAwards.map((award, index) => (
@@ -137,13 +140,13 @@ export function AwardsForm({
                 className="border-yellow-500"
               />
               <Label htmlFor={`evp-gold-${index}`} className="text-xs text-yellow-500 cursor-pointer">
-                金色
+                {t("form.gold")}
               </Label>
             </div>
             <Input
               value={award.event}
               onChange={(e) => updateEvpAward(index, e.target.value)}
-              placeholder="赛事名称，如: IEM Katowice"
+              placeholder={t("form.eventPlaceholder")}
               className="flex-1"
             />
             <Button
@@ -158,7 +161,7 @@ export function AwardsForm({
           </div>
         ))}
         {evpAwards.length === 0 && (
-          <p className="text-sm text-gray-500">暂无 EVP 奖项</p>
+          <p className="text-sm text-gray-500">{t("form.noEvp")}</p>
         )}
       </div>
     </div>

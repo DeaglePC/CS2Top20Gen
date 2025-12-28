@@ -1,8 +1,8 @@
 import { NotableStat } from "@/types/player";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Plus, X } from "lucide-react";
+import { useI18n } from "@/i18n";
 
 interface NotableStatsFormProps {
   stats: NotableStat[];
@@ -10,6 +10,8 @@ interface NotableStatsFormProps {
 }
 
 export function NotableStatsForm({ stats, onChange }: NotableStatsFormProps) {
+  const { t } = useI18n();
+
   const addStat = () => {
     onChange([...stats, { description: "", ranking: "" }]);
   };
@@ -31,7 +33,7 @@ export function NotableStatsForm({ stats, onChange }: NotableStatsFormProps) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gold">详细数据统计</h3>
+        <h3 className="text-lg font-semibold text-gold">{t("form.notableStats")}</h3>
         <Button
           type="button"
           variant="ghost"
@@ -40,7 +42,7 @@ export function NotableStatsForm({ stats, onChange }: NotableStatsFormProps) {
           className="text-gold hover:text-yellow-400"
         >
           <Plus className="w-4 h-4 mr-1" />
-          添加数据
+          {t("form.addStat")}
         </Button>
       </div>
 
@@ -50,13 +52,13 @@ export function NotableStatsForm({ stats, onChange }: NotableStatsFormProps) {
             <Input
               value={stat.description}
               onChange={(e) => updateStat(index, "description", e.target.value)}
-              placeholder="数据描述，如: 1.13 rating 3.0"
+              placeholder={t("form.descPlaceholder")}
               className="flex-1"
             />
             <Input
               value={stat.ranking}
               onChange={(e) => updateStat(index, "ranking", e.target.value)}
-              placeholder="排名，如: #15"
+              placeholder={t("form.rankingPlaceholder")}
               className="w-20"
             />
             <Button
@@ -74,14 +76,14 @@ export function NotableStatsForm({ stats, onChange }: NotableStatsFormProps) {
 
       {stats.length === 0 && (
         <p className="text-sm text-gray-500 text-center py-4">
-          暂无详细数据，点击上方按钮添加
+          {t("form.noNotableStats")}
         </p>
       )}
 
       <div className="text-xs text-gray-500">
-        <p>提示：每条数据包含描述和排名，如：</p>
-        <p className="mt-1">• 描述: "1.13 rating 3.0"</p>
-        <p>• 排名: "#15"</p>
+        <p>{t("form.notableTip")}</p>
+        <p className="mt-1">{t("form.notableTipDesc")}</p>
+        <p>{t("form.notableTipRank")}</p>
       </div>
     </div>
   );

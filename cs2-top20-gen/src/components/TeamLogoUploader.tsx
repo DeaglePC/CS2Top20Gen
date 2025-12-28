@@ -1,6 +1,7 @@
 import { useRef, ChangeEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Upload, X } from "lucide-react";
+import { useI18n } from "@/i18n";
 
 interface TeamLogoUploaderProps {
   imageUrl: string;
@@ -9,6 +10,7 @@ interface TeamLogoUploaderProps {
 
 export function TeamLogoUploader({ imageUrl, onImageChange }: TeamLogoUploaderProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { t } = useI18n();
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -34,7 +36,7 @@ export function TeamLogoUploader({ imageUrl, onImageChange }: TeamLogoUploaderPr
 
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-gold">战队Logo</h3>
+      <h3 className="text-lg font-semibold text-gold">{t("upload.teamLogo")}</h3>
 
       <input
         ref={fileInputRef}
@@ -49,7 +51,7 @@ export function TeamLogoUploader({ imageUrl, onImageChange }: TeamLogoUploaderPr
           <div className="relative w-full h-24 rounded-lg overflow-hidden bg-hltv-bg-light flex items-center justify-center">
             <img
               src={imageUrl}
-              alt="战队Logo预览"
+              alt="Team logo preview"
               className="h-20 w-auto object-contain"
             />
           </div>
@@ -62,7 +64,7 @@ export function TeamLogoUploader({ imageUrl, onImageChange }: TeamLogoUploaderPr
               className="bg-hltv-bg-dark/80 hover:bg-hltv-bg-medium"
             >
               <Upload className="w-4 h-4 mr-1" />
-              更换
+              {t("upload.change")}
             </Button>
             <Button
               type="button"
@@ -80,13 +82,9 @@ export function TeamLogoUploader({ imageUrl, onImageChange }: TeamLogoUploaderPr
           className="w-full h-24 border-2 border-dashed border-gray-600 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-gold hover:bg-hltv-bg-light/50 transition-colors"
         >
           <Upload className="w-8 h-8 text-gray-500 mb-1" />
-          <p className="text-gray-400 text-sm">点击上传战队Logo</p>
+          <p className="text-gray-400 text-sm">{t("upload.click")}</p>
         </div>
       )}
-
-      <p className="text-xs text-gray-500">
-        Logo将显示在卡片头部背景，建议使用透明背景PNG
-      </p>
     </div>
   );
 }

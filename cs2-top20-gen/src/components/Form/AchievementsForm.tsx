@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Plus, X } from "lucide-react";
+import { useI18n } from "@/i18n";
 
 interface AchievementsFormProps {
   achievements: TeamAchievement[];
@@ -13,6 +14,7 @@ export function AchievementsForm({
   achievements,
   onChange,
 }: AchievementsFormProps) {
+  const { t } = useI18n();
   const places: Array<"1ST" | "2ND" | "3RD"> = ["1ST", "2ND", "3RD"];
 
   const getAchievementByPlace = (place: "1ST" | "2ND" | "3RD") => {
@@ -52,24 +54,24 @@ export function AchievementsForm({
     updateAchievement(place, updated);
   };
 
-  const placeLabels = {
-    "1ST": { label: "冠军 🥇", color: "text-yellow-400" },
-    "2ND": { label: "亚军 🥈", color: "text-gray-300" },
-    "3RD": { label: "季军 🥉", color: "text-amber-600" },
+  const placeLabels: Record<"1ST" | "2ND" | "3RD", { labelKey: string; noAchievementKey: string; color: string }> = {
+    "1ST": { labelKey: "form.place1st", noAchievementKey: "form.noAchievement1st", color: "text-yellow-400" },
+    "2ND": { labelKey: "form.place2nd", noAchievementKey: "form.noAchievement2nd", color: "text-gray-300" },
+    "3RD": { labelKey: "form.place3rd", noAchievementKey: "form.noAchievement3rd", color: "text-amber-600" },
   };
 
   return (
     <div className="space-y-6">
-      <h3 className="text-lg font-semibold text-gold">战队成就</h3>
+      <h3 className="text-lg font-semibold text-gold">{t("form.achievements")}</h3>
 
       {places.map((place) => {
         const achievement = getAchievementByPlace(place);
-        const { label, color } = placeLabels[place];
+        const { labelKey, noAchievementKey, color } = placeLabels[place];
 
         return (
           <div key={place} className="space-y-3">
             <div className="flex items-center justify-between">
-              <Label className={color}>{label}</Label>
+              <Label className={color}>{t(labelKey)}</Label>
               <Button
                 type="button"
                 variant="ghost"
@@ -78,7 +80,7 @@ export function AchievementsForm({
                 className={`${color} hover:opacity-80`}
               >
                 <Plus className="w-4 h-4 mr-1" />
-                添加赛事
+                {t("form.addEvent")}
               </Button>
             </div>
             {achievement.events.map((event, index) => (
@@ -86,7 +88,7 @@ export function AchievementsForm({
                 <Input
                   value={event}
                   onChange={(e) => updateEvent(place, index, e.target.value)}
-                  placeholder="赛事名称，如: PGL Major"
+                  placeholder={t("form.eventNamePlaceholder")}
                   className="flex-1"
                 />
                 <Button
@@ -101,7 +103,7 @@ export function AchievementsForm({
               </div>
             ))}
             {achievement.events.length === 0 && (
-              <p className="text-sm text-gray-500">暂无{label}成就</p>
+              <p className="text-sm text-gray-500">{t(noAchievementKey)}</p>
             )}
           </div>
         );
